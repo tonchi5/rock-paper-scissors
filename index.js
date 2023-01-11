@@ -2,21 +2,6 @@ const choices = ["rock", "paper", "scissors"];
 let playerScore = 0;
 let computerScore = 0;
 
-function playRound() {
-    const playerSelection = playerChoice();
-    const computerSelection= computerChoice();
-    console.log(computerSelection);
-    const winner = checkWinner(playerSelection,computerSelection);
-    console.log(winner)
-    }
-
-function game() {
-    for (let i = 0; i < 5; i++) {
-    playRound();}
-    //winCondition();}
-    winCondition();
-  }
-
 function computerChoice() {
     return choices[Math.floor(Math.random() * choices.length)];
 }
@@ -30,30 +15,44 @@ function playerChoice() {
     return input;
 }
 
-function checkWinner(choiceP, choiceC) {
-    if (choiceP === choiceC) {
+function playRound() {
+    const playerSelection = playerChoice();
+    const computerSelection= computerChoice();
+    const result = checkWinner(playerSelection,computerSelection);
+    console.log(result)
+    if (playerScore == 5) {
+        return "Congratulations!";
+      }
+      else if (computerScore == 5) {
+        return "Game over!, Play another?";
+      }
+      else {
+        return "It's a tie!";
+      }
+    }
+
+function game() {
+    for (let i = 0; i < 5; i++) {
+    playRound();
+    checkWinner();
+        }
+    }
+    
+  
+function checkWinner(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
         return "It's a tie!";
     } 
     else if (
-    choiceP === "rock" && choiceC === "scissors" || 
-    choiceP === "paper" && choiceC === "rock"|| 
-    choiceP === "scissors" && choiceC === "paper") {
-        return "You win!";
+    playerSelection === "rock" && computerSelection === "scissors" || 
+    playerSelection === "paper" && computerSelection === "rock"|| 
+    playerSelection === "scissors" && computerSelection === "paper") {
+        return "You win this one!";
     }
     else {
         return "Try again!";
     } 
 }
-
-function winCondition() {
-    if (playerScore == 5) {
-      return "Congratulations!";
-    }
-    if (computerScore == 5) {
-      return "Game over!";
-    }
-  }
-
 
 game();
    
